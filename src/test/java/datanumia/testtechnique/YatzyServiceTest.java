@@ -20,120 +20,120 @@ public class YatzyServiceTest {
     @MethodSource("chanceScore")
     public void Should_Scores_The_Sum_Of_All_Dice(int d1, int d2, int d3, int d4, int d5, int expectedScore) {
         DiceRoll diceRoll = new DiceRoll(d1, d2, d3, d4, d5);
-        int actulScore = yatzyService.calculateScore(diceRoll, Category.CHANCE);
-        assertEquals(actulScore, expectedScore);
+        int actualScore = yatzyService.calculateScore(diceRoll, Category.CHANCE);
+        assertEquals(actualScore, expectedScore);
     }
 
     @ParameterizedTest
     @MethodSource("yatzyScore")
     public void Should_Score_50_IfYatzy_And_Zero_Else(int d1, int d2, int d3, int d4, int d5, int expectedScore) {
         DiceRoll diceRoll = new DiceRoll(d1, d2, d3, d4, d5);
-        int actulScore = yatzyService.calculateScore(diceRoll, Category.YATZY);
-        assertEquals(actulScore, expectedScore);
+        int actualScore = yatzyService.calculateScore(diceRoll, Category.YATZY);
+        assertEquals(actualScore, expectedScore);
     }
 
     @ParameterizedTest
     @MethodSource("scoreSumOfOneDice")
     public void Should_Score_The_Sum_Of_Dice_That_Reads_One(int d1, int d2, int d3, int d4, int d5, int expectedScore) {
         DiceRoll diceRoll = new DiceRoll(d1, d2, d3, d4, d5);
-        int actulScore = yatzyService.calculateScore(diceRoll, Category.ONES);
-        assertEquals(actulScore, expectedScore);
+        int actualScore = yatzyService.calculateScore(diceRoll, Category.ONES);
+        assertEquals(actualScore, expectedScore);
     }
 
     @ParameterizedTest
     @MethodSource("scoreSumOfTwosDice")
     public void Should_Score_The_Sum_Of_Dice_That_Reads_Two(int d1, int d2, int d3, int d4, int d5, int expectedScore) {
         DiceRoll diceRoll = new DiceRoll(d1, d2, d3, d4, d5);
-        int actulScore = yatzyService.calculateScore(diceRoll, Category.TWOS);
-        assertEquals(actulScore, expectedScore);
+        int actualScore = yatzyService.calculateScore(diceRoll, Category.TWOS);
+        assertEquals(actualScore, expectedScore);
     }
 
     @ParameterizedTest
     @MethodSource("scoreSumOfThreesDice")
     public void Should_Score_The_Sum_Of_Dice_That_Reads_Three(int d1, int d2, int d3, int d4, int d5, int expectedScore) {
         DiceRoll diceRoll = new DiceRoll(d1, d2, d3, d4, d5);
-        int actulScore = yatzyService.calculateScore(diceRoll, Category.THREES);
-        assertEquals(actulScore, expectedScore);
+        int actualScore = yatzyService.calculateScore(diceRoll, Category.THREES);
+        assertEquals(actualScore, expectedScore);
     }
 
     @ParameterizedTest
     @MethodSource("scoreSumOfFourDice")
     public void Should_Score_The_Sum_Of_Dice_That_Reads_Four(int d1, int d2, int d3, int d4, int d5, int expectedScore) {
         DiceRoll diceRoll = new DiceRoll(d1, d2, d3, d4, d5);
-        int actulScore = yatzyService.calculateScore(diceRoll, Category.FOURS);
-        assertEquals(actulScore, expectedScore);
+        int actualScore = yatzyService.calculateScore(diceRoll, Category.FOURS);
+        assertEquals(actualScore, expectedScore);
     }
 
     @ParameterizedTest
     @MethodSource("scoreSumOfFiveDice")
     public void Should_Score_The_Sum_Of_Dice_That_Reads_Five(int d1, int d2, int d3, int d4, int d5, int expectedScore) {
         DiceRoll diceRoll = new DiceRoll(d1, d2, d3, d4, d5);
-        int actulScore = yatzyService.calculateScore(diceRoll, Category.FIVES);
-        assertEquals(actulScore, expectedScore);
+        int actualScore = yatzyService.calculateScore(diceRoll, Category.FIVES);
+        assertEquals(actualScore, expectedScore);
     }
 
     @ParameterizedTest
     @MethodSource("scoreSumOfSixDice")
     public void Should_Score_The_Sum_Of_Dice_That_Reads_Six(int d1, int d2, int d3, int d4, int d5, int expectedScore) {
         DiceRoll diceRoll = new DiceRoll(d1, d2, d3, d4, d5);
-        int actulScore = yatzyService.calculateScore(diceRoll, Category.SIXES);
-        assertEquals(actulScore, expectedScore);
+        int actualScore = yatzyService.calculateScore(diceRoll, Category.SIXES);
+        assertEquals(actualScore, expectedScore);
     }
 
     @ParameterizedTest
     @MethodSource("scoreSumOfTwoHighestMatchingDice")
     public void Should_Score_The_Sum_Of_The_Two_Highest_Matching_Dice(int d1, int d2, int d3, int d4, int d5, int expectedScore) {
         DiceRoll diceRoll = new DiceRoll(d1, d2, d3, d4, d5);
-        int actulScore = yatzyService.calculateScore(diceRoll, Category.PAIR);
-        assertEquals(actulScore, expectedScore);
+        int actualScore = yatzyService.calculateScore(diceRoll, Category.PAIR);
+        assertEquals(actualScore, expectedScore);
     }
 
     @ParameterizedTest
     @MethodSource("scoreSumOfMatchingDice")
     public void Should_Score_The_Sum_Of_The_Matching_Dice(int d1, int d2, int d3, int d4, int d5, int expectedScore) {
         DiceRoll diceRoll = new DiceRoll(d1, d2, d3, d4, d5);
-        int actulScore = yatzyService.calculateScore(diceRoll, Category.TWO_PAIRS);
-        assertEquals(actulScore, expectedScore);
+        int actualScore = yatzyService.calculateScore(diceRoll, Category.TWO_PAIRS);
+        assertEquals(actualScore, expectedScore);
     }
 
     @ParameterizedTest
     @MethodSource("scoreSumThreeDiceWithSameNumber")
     public void Should_Score_The_Sum_Of_Three_Dice_With_Same_Number(int d1, int d2, int d3, int d4, int d5, int expectedScore) {
         DiceRoll diceRoll = new DiceRoll(d1, d2, d3, d4, d5);
-        int actulScore = yatzyService.calculateScore(diceRoll, Category.THREE_OF_A_KIND);
-        assertEquals(actulScore, expectedScore);
+        int actualScore = yatzyService.calculateScore(diceRoll, Category.THREE_OF_A_KIND);
+        assertEquals(actualScore, expectedScore);
     }
 
     @ParameterizedTest
     @MethodSource("scoreSumFourDiceWithSameNumber")
     public void Should_Score_The_Sum_Of_Four_Dice_With_Same_Number(int d1, int d2, int d3, int d4, int d5, int expectedScore) {
         DiceRoll diceRoll = new DiceRoll(d1, d2, d3, d4, d5);
-        int actulScore = yatzyService.calculateScore(diceRoll, Category.FOUR_OF_A_KIND);
-        assertEquals(actulScore, expectedScore);
+        int actualScore = yatzyService.calculateScore(diceRoll, Category.FOUR_OF_A_KIND);
+        assertEquals(actualScore, expectedScore);
     }
 
     @ParameterizedTest
     @MethodSource("scoreSmallStraightScore")
     public void Should_Score_The_Sum_Of_All_Dice_When_Small_Straight(int d1, int d2, int d3, int d4, int d5, int expectedScore) {
         DiceRoll diceRoll = new DiceRoll(d1, d2, d3, d4, d5);
-        int actulScore = yatzyService.calculateScore(diceRoll, Category.SMALL_STRAIGHT);
-        assertEquals(actulScore, expectedScore);
+        int actualScore = yatzyService.calculateScore(diceRoll, Category.SMALL_STRAIGHT);
+        assertEquals(actualScore, expectedScore);
     }
 
     @ParameterizedTest
     @MethodSource("scoreLargeStraightScore")
     public void Should_Score_The_Sum_Of_All_Dice_When_Large_Straight(int d1, int d2, int d3, int d4, int d5, int expectedScore) {
         DiceRoll diceRoll = new DiceRoll(d1, d2, d3, d4, d5);
-        int actulScore = yatzyService.calculateScore(diceRoll, Category.LARGE_STRAIGHT);
-        assertEquals(actulScore, expectedScore);
+        int actualScore = yatzyService.calculateScore(diceRoll, Category.LARGE_STRAIGHT);
+        assertEquals(actualScore, expectedScore);
     }
 
     @ParameterizedTest
     @MethodSource("scoreFullHouseScore")
     public void Should_Score_The_Sum_Of_All_Dice_When_Full_House(int d1, int d2, int d3, int d4, int d5, int expectedScore) {
         DiceRoll diceRoll = new DiceRoll(d1, d2, d3, d4, d5);
-        int actulScore = yatzyService.calculateScore(diceRoll, Category.FULL_HOUSE);
-        assertEquals(actulScore, expectedScore);
+        int actualScore = yatzyService.calculateScore(diceRoll, Category.FULL_HOUSE);
+        assertEquals(actualScore, expectedScore);
     }
 
     private static Stream<Arguments> chanceScore() {
