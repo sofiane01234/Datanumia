@@ -53,11 +53,13 @@ public class YatzyScorer {
     }
 
     public static int scoreThreeOfAKind(DiceRoll diceRoll) {
-        return diceRoll.gettheHighestOccurenceEqualOrGreaterThen(3).get(0) * 3;
+        List<Integer> highestOccurenceEqualOrGreaterThen = diceRoll.gettheHighestOccurenceEqualOrGreaterThen(3);
+        return highestOccurenceEqualOrGreaterThen.isEmpty() ? 0 : highestOccurenceEqualOrGreaterThen.get(0) * 3;
     }
 
     public static int scoreFourOfAKind(DiceRoll diceRoll) {
-        return diceRoll.gettheHighestOccurenceEqualOrGreaterThen(4).get(0) * 4;
+        List<Integer> highestOccurenceEqualOrGreaterThen = diceRoll.gettheHighestOccurenceEqualOrGreaterThen(4);
+        return highestOccurenceEqualOrGreaterThen.isEmpty() ? 0 : highestOccurenceEqualOrGreaterThen.get(0) * 4;
 
     }
 

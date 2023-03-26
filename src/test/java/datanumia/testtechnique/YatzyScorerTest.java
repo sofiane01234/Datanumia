@@ -1,110 +1,261 @@
 package datanumia.testtechnique;
 
 import datanumia.testtechnique.model.DiceRoll;
-import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.util.stream.Stream;
+
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+
 
 public class YatzyScorerTest {
 
-    @Test
-    public void Should_Scores_The_Sum_Of_All_Dice() {
-        assertEquals(15, YatzyScorer.scoreChance(new DiceRoll(2, 3, 4, 5, 1)));
-        assertEquals(16, YatzyScorer.scoreChance(new DiceRoll(3, 3, 4, 5, 1)));
+    @ParameterizedTest
+    @MethodSource("chanceScore")
+    public void Should_Scores_The_Sum_Of_All_Dice(int d1, int d2, int d3, int d4, int d5, int expectedScore) {
+        DiceRoll diceRoll = new DiceRoll(d1, d2, d3, d4, d5);
+        int actualScore = YatzyScorer.scoreChance(diceRoll);
+        assertEquals(actualScore, expectedScore);
     }
 
-    @Test
-    public void Should_Score_50_IfYatzy_And_Zero_Else() {
-        assertEquals(50, YatzyScorer.scoreYatzy(new DiceRoll(4, 4, 4, 4, 4)));
-        assertEquals(50, YatzyScorer.scoreYatzy(new DiceRoll(6, 6, 6, 6, 6)));
-        assertEquals(0, YatzyScorer.scoreYatzy(new DiceRoll(6, 6, 6, 6, 3)));
+    @ParameterizedTest
+    @MethodSource("yatzyScore")
+    public void Should_Score_50_IfYatzy_And_Zero_Else(int d1, int d2, int d3, int d4, int d5, int expectedScore) {
+        DiceRoll diceRoll = new DiceRoll(d1, d2, d3, d4, d5);
+        int actualScore = YatzyScorer.scoreYatzy(diceRoll);
+        assertEquals(actualScore, expectedScore);
     }
 
-    @Test
-    public void Should_Score_The_Sum_Of_Dice_That_Reads_One() {
-        assertEquals(1, YatzyScorer.scoreOnes(new DiceRoll(1, 2, 3, 4, 5)));
-        assertEquals(2, YatzyScorer.scoreOnes(new DiceRoll(1, 2, 1, 4, 5)));
-        assertEquals(0, YatzyScorer.scoreOnes(new DiceRoll(6, 2, 2, 4, 5)));
-        assertEquals(4, YatzyScorer.scoreOnes(new DiceRoll(1, 2, 1, 1, 1)));
+    @ParameterizedTest
+    @MethodSource("scoreSumOfOneDice")
+    public void Should_Score_The_Sum_Of_Dice_That_Reads_One(int d1, int d2, int d3, int d4, int d5, int expectedScore) {
+        DiceRoll diceRoll = new DiceRoll(d1, d2, d3, d4, d5);
+        int actualScore = YatzyScorer.scoreOnes(diceRoll);
+        assertEquals(actualScore, expectedScore);
     }
 
-    @Test
-    public void Should_Score_The_Sum_Of_Dice_That_Reads_Two() {
-        assertEquals(4, YatzyScorer.scoreTwos(new DiceRoll(1, 2, 3, 2, 6)));
-        assertEquals(10, YatzyScorer.scoreTwos(new DiceRoll(2, 2, 2, 2, 2)));
+    @ParameterizedTest
+    @MethodSource("scoreSumOfTwosDice")
+    public void Should_Score_The_Sum_Of_Dice_That_Reads_Two(int d1, int d2, int d3, int d4, int d5, int expectedScore) {
+        DiceRoll diceRoll = new DiceRoll(d1, d2, d3, d4, d5);
+        int actualScore = YatzyScorer.scoreTwos(diceRoll);
+        assertEquals(actualScore, expectedScore);
     }
 
-    @Test
-    public void Should_Score_The_Sum_Of_Dice_That_Reads_Three() {
-        assertEquals(6, YatzyScorer.scoreThrees(new DiceRoll(1, 2, 3, 2, 3)));
-        assertEquals(12, YatzyScorer.scoreThrees(new DiceRoll(2, 3, 3, 3, 3)));
+    @ParameterizedTest
+    @MethodSource("scoreSumOfThreesDice")
+    public void Should_Score_The_Sum_Of_Dice_That_Reads_Three(int d1, int d2, int d3, int d4, int d5, int expectedScore) {
+        DiceRoll diceRoll = new DiceRoll(d1, d2, d3, d4, d5);
+        int actualScore = YatzyScorer.scoreThrees(diceRoll);
+        assertEquals(actualScore, expectedScore);
     }
 
-    @Test
-    public void Should_Score_The_Sum_Of_Dice_That_Reads_Four() {
-        assertEquals(12, YatzyScorer.scoreFours(new DiceRoll(4, 4, 4, 5, 5)));
-        assertEquals(8, YatzyScorer.scoreFours(new DiceRoll(4, 4, 5, 5, 5)));
-        assertEquals(4, YatzyScorer.scoreFours(new DiceRoll(4, 5, 5, 5, 5)));
+    @ParameterizedTest
+    @MethodSource("scoreSumOfFourDice")
+    public void Should_Score_The_Sum_Of_Dice_That_Reads_Four(int d1, int d2, int d3, int d4, int d5, int expectedScore) {
+        DiceRoll diceRoll = new DiceRoll(d1, d2, d3, d4, d5);
+        int actualScore = YatzyScorer.scoreFours(diceRoll);
+        assertEquals(actualScore, expectedScore);
     }
 
-    @Test
-    public void Should_Score_The_Sum_Of_Dice_That_Reads_Five() {
-        assertEquals(10, YatzyScorer.scoreFives(new DiceRoll(4, 4, 4, 5, 5)));
-        assertEquals(15, YatzyScorer.scoreFives(new DiceRoll(4, 4, 5, 5, 5)));
-        assertEquals(20, YatzyScorer.scoreFives(new DiceRoll(4, 5, 5, 5, 5)));
+    @ParameterizedTest
+    @MethodSource("scoreSumOfFiveDice")
+    public void Should_Score_The_Sum_Of_Dice_That_Reads_Five(int d1, int d2, int d3, int d4, int d5, int expectedScore) {
+        DiceRoll diceRoll = new DiceRoll(d1, d2, d3, d4, d5);
+        int actualScore = YatzyScorer.scoreFives(diceRoll);
+        assertEquals(actualScore, expectedScore);
     }
 
-    @Test
-    public void Should_Score_The_Sum_Of_Dice_That_Reads_Six() {
-        assertEquals(0, YatzyScorer.scoreSixes(new DiceRoll(4, 4, 4, 5, 5)));
-        assertEquals(6, YatzyScorer.scoreSixes(new DiceRoll(4, 4, 6, 5, 5)));
-        assertEquals(18, YatzyScorer.scoreSixes(new DiceRoll(6, 5, 6, 6, 5)));
+    @ParameterizedTest
+    @MethodSource("scoreSumOfSixDice")
+    public void Should_Score_The_Sum_Of_Dice_That_Reads_Six(int d1, int d2, int d3, int d4, int d5, int expectedScore) {
+        DiceRoll diceRoll = new DiceRoll(d1, d2, d3, d4, d5);
+        int actualScore = YatzyScorer.scoreSixes(diceRoll);
+        assertEquals(actualScore, expectedScore);
     }
 
-    @Test
-    public void Should_Score_The_Sum_Of_The_Two_Highest_Matching_Dice() {
-        assertEquals(6, YatzyScorer.scoreOnePair(new DiceRoll(3, 4, 3, 5, 6)));
-        assertEquals(10, YatzyScorer.scoreOnePair(new DiceRoll(5, 3, 3, 3, 5)));
-        assertEquals(12, YatzyScorer.scoreOnePair(new DiceRoll(5, 3, 6, 6, 5)));
+    @ParameterizedTest
+    @MethodSource("scoreSumOfTwoHighestMatchingDice")
+    public void Should_Score_The_Sum_Of_The_Two_Highest_Matching_Dice(int d1, int d2, int d3, int d4, int d5, int expectedScore) {
+        DiceRoll diceRoll = new DiceRoll(d1, d2, d3, d4, d5);
+        int actualScore = YatzyScorer.scoreOnePair(diceRoll);
+        assertEquals(actualScore, expectedScore);
     }
 
-    @Test
-    public void Should_Score_The_Sum_Of_The_Matching_Dice() {
-        assertEquals(16, YatzyScorer.scoreTwoPairs(new DiceRoll(3, 3, 5, 4, 5)));
-        assertEquals(16, YatzyScorer.scoreTwoPairs(new DiceRoll(3, 3, 5, 5, 5)));
+    @ParameterizedTest
+    @MethodSource("scoreSumOfMatchingDice")
+    public void Should_Score_The_Sum_Of_The_Matching_Dice(int d1, int d2, int d3, int d4, int d5, int expectedScore) {
+        DiceRoll diceRoll = new DiceRoll(d1, d2, d3, d4, d5);
+        int actualScore = YatzyScorer.scoreTwoPairs(diceRoll);
+        assertEquals(actualScore, expectedScore);
     }
 
-    @Test
-    public void Should_Score_The_Sum_Of_Three_Dice_With_Same_Number() {
-        assertEquals(9, YatzyScorer.scoreThreeOfAKind(new DiceRoll(3, 3, 3, 4, 5)));
-        assertEquals(15, YatzyScorer.scoreThreeOfAKind(new DiceRoll(5, 3, 5, 4, 5)));
-        assertEquals(9, YatzyScorer.scoreThreeOfAKind(new DiceRoll(3, 3, 3, 3, 5)));
+    @ParameterizedTest
+    @MethodSource("scoreSumThreeDiceWithSameNumber")
+    public void Should_Score_The_Sum_Of_Three_Dice_With_Same_Number(int d1, int d2, int d3, int d4, int d5, int expectedScore) {
+        DiceRoll diceRoll = new DiceRoll(d1, d2, d3, d4, d5);
+        int actualScore = YatzyScorer.scoreThreeOfAKind(diceRoll);
+        assertEquals(actualScore, expectedScore);
     }
 
-    @Test
-    public void Should_Score_The_Sum_Of_Four_Dice_With_Same_Number() {
-        assertEquals(12, YatzyScorer.scoreFourOfAKind(new DiceRoll(3, 3, 3, 3, 5)));
-        assertEquals(20, YatzyScorer.scoreFourOfAKind(new DiceRoll(5, 5, 5, 4, 5)));
-        assertEquals(12, YatzyScorer.scoreFourOfAKind(new DiceRoll(3, 3, 3, 3, 3)));
+    @ParameterizedTest
+    @MethodSource("scoreSumFourDiceWithSameNumber")
+    public void Should_Score_The_Sum_Of_Four_Dice_With_Same_Number(int d1, int d2, int d3, int d4, int d5, int expectedScore) {
+        DiceRoll diceRoll = new DiceRoll(d1, d2, d3, d4, d5);
+        int actualScore = YatzyScorer.scoreFourOfAKind(diceRoll);
+        assertEquals(actualScore, expectedScore);
     }
 
-    @Test
-    public void Should_Score_The_Sum_Of_All_Dice_When_Small_Straight() {
-        assertEquals(15, YatzyScorer.scoreSmallStraight(new DiceRoll(1, 2, 3, 4, 5)));
-        assertEquals(15, YatzyScorer.scoreSmallStraight(new DiceRoll(2, 3, 4, 5, 1)));
-        assertEquals(0, YatzyScorer.scoreSmallStraight(new DiceRoll(1, 2, 2, 4, 5)));
+    @ParameterizedTest
+    @MethodSource("scoreSmallStraightScore")
+    public void Should_Score_The_Sum_Of_All_Dice_When_Small_Straight(int d1, int d2, int d3, int d4, int d5, int expectedScore) {
+        DiceRoll diceRoll = new DiceRoll(d1, d2, d3, d4, d5);
+        int actualScore = YatzyScorer.scoreSmallStraight(diceRoll);
+        assertEquals(actualScore, expectedScore);
     }
 
-    @Test
-    public void Should_Score_The_Sum_Of_All_Dice_When_Large_Straight() {
-        assertEquals(20, YatzyScorer.scoreLargeStraight(new DiceRoll(6, 2, 3, 4, 5)));
-        assertEquals(20, YatzyScorer.scoreLargeStraight(new DiceRoll(2, 3, 4, 5, 6)));
-        assertEquals(0, YatzyScorer.scoreLargeStraight(new DiceRoll(1, 2, 2, 4, 5)));
+    @ParameterizedTest
+    @MethodSource("scoreLargeStraightScore")
+    public void Should_Score_The_Sum_Of_All_Dice_When_Large_Straight(int d1, int d2, int d3, int d4, int d5, int expectedScore) {
+        DiceRoll diceRoll = new DiceRoll(d1, d2, d3, d4, d5);
+        int actualScore = YatzyScorer.scoreLargeStraight(diceRoll);
+        assertEquals(actualScore, expectedScore);
     }
 
-    @Test
-    public void Should_Score_The_Sum_Of_All_Dice_When_Full_House() {
-        assertEquals(18, YatzyScorer.scoreFullHouse(new DiceRoll(6, 2, 2, 2, 6)));
-        assertEquals(0, YatzyScorer.scoreFullHouse(new DiceRoll(2, 3, 4, 5, 6)));
+    @ParameterizedTest
+    @MethodSource("scoreFullHouseScore")
+    public void Should_Score_The_Sum_Of_All_Dice_When_Full_House(int d1, int d2, int d3, int d4, int d5, int expectedScore) {
+        DiceRoll diceRoll = new DiceRoll(d1, d2, d3, d4, d5);
+        int actualScore = YatzyScorer.scoreFullHouse(diceRoll);
+        assertEquals(actualScore, expectedScore);
+    }
+
+    private static Stream<Arguments> chanceScore() {
+        return Stream.of(
+                Arguments.of(2, 3, 4, 5, 1, 15),
+                Arguments.of(3, 3, 4, 5, 1, 16)
+        );
+    }
+
+    private static Stream<Arguments> yatzyScore() {
+        return Stream.of(
+                Arguments.of(4, 4, 4, 4, 4, 50),
+                Arguments.of(6, 6, 6, 6, 6, 50),
+                Arguments.of(6, 6, 6, 6, 3, 0)
+        );
+    }
+
+    private static Stream<Arguments> scoreSumOfOneDice() {
+        return Stream.of(
+                Arguments.of(1, 2, 3, 4, 5, 1),
+                Arguments.of(1, 2, 1, 4, 5, 2),
+                Arguments.of(6, 2, 2, 4, 5, 0)
+        );
+    }
+
+    private static Stream<Arguments> scoreSumOfTwosDice() {
+        return Stream.of(
+                Arguments.of(1, 2, 3, 2, 6, 4),
+                Arguments.of(2, 2, 2, 2, 2, 10)
+        );
+    }
+
+    private static Stream<Arguments> scoreSumOfThreesDice() {
+        return Stream.of(
+                Arguments.of(1, 2, 3, 2, 3, 6),
+                Arguments.of(2, 3, 3, 3, 3, 12),
+                Arguments.of(2, 5, 4, 6, 1, 0)
+        );
+    }
+
+    private static Stream<Arguments> scoreSumOfFourDice() {
+        return Stream.of(
+                Arguments.of(4, 5, 5, 5, 5, 4),
+                Arguments.of(4, 4, 5, 5, 5, 8),
+                Arguments.of(4, 4, 4, 5, 5, 12),
+                Arguments.of(5, 2, 3, 1, 5, 0)
+        );
+    }
+
+    private static Stream<Arguments> scoreSumOfFiveDice() {
+        return Stream.of(
+                Arguments.of(4, 4, 4, 5, 5, 10),
+                Arguments.of(4, 4, 5, 5, 5, 15),
+                Arguments.of(4, 5, 5, 5, 5, 20),
+                Arguments.of(4, 3, 2, 6, 6, 0)
+        );
+    }
+
+    private static Stream<Arguments> scoreSumOfSixDice() {
+        return Stream.of(
+                Arguments.of(4, 4, 4, 5, 5, 0),
+                Arguments.of(4, 4, 6, 5, 5, 6),
+                Arguments.of(6, 5, 6, 6, 5, 18)
+        );
+    }
+
+    private static Stream<Arguments> scoreSumOfTwoHighestMatchingDice() {
+        return Stream.of(
+                Arguments.of(5, 3, 6, 6, 5, 12),
+                Arguments.of(5, 6, 6, 6, 5, 12),
+                Arguments.of(3, 4, 3, 5, 6, 6),
+                Arguments.of(5, 3, 3, 3, 5, 10),
+                Arguments.of(2, 1, 3, 6, 5, 0)
+        );
+    }
+
+    private static Stream<Arguments> scoreSumOfMatchingDice() {
+        return Stream.of(
+                Arguments.of(1, 2, 3, 1, 4, 0),
+                Arguments.of(3, 3, 5, 4, 5, 16),
+                Arguments.of(3, 3, 5, 5, 5, 16),
+                Arguments.of(3, 3, 1, 3, 3, 0)
+        );
+    }
+
+    private static Stream<Arguments> scoreSumThreeDiceWithSameNumber() {
+        return Stream.of(
+                Arguments.of(3, 3, 3, 3, 5, 9),
+                Arguments.of(3, 3, 3, 4, 5, 9),
+                Arguments.of(3, 3, 3, 3, 3, 9),
+                Arguments.of(5, 3, 5, 4, 5, 15),
+                Arguments.of(3, 5, 4, 3, 6, 0)
+        );
+    }
+
+    private static Stream<Arguments> scoreSumFourDiceWithSameNumber() {
+        return Stream.of(
+                Arguments.of(3, 3, 3, 3, 5, 12),
+                Arguments.of(5, 5, 5, 4, 5, 20),
+                Arguments.of(5, 2, 2, 5, 5, 0),
+                Arguments.of(5, 1, 4, 6, 3, 0)
+        );
+    }
+
+    private static Stream<Arguments> scoreSmallStraightScore() {
+        return Stream.of(
+                Arguments.of(1, 2, 3, 4, 5, 15),
+                Arguments.of(2, 3, 4, 5, 1, 15),
+                Arguments.of(1, 2, 2, 4, 5, 0)
+        );
+    }
+
+
+    private static Stream<Arguments> scoreLargeStraightScore() {
+        return Stream.of(
+                Arguments.of(6, 2, 3, 4, 5, 20),
+                Arguments.of(2, 3, 4, 5, 6, 20),
+                Arguments.of(1, 2, 2, 4, 5, 0)
+        );
+    }
+
+    private static Stream<Arguments> scoreFullHouseScore() {
+        return Stream.of(
+                Arguments.of(6, 2, 2, 2, 6, 18),
+                Arguments.of(2, 2, 3, 3, 4, 0),
+                Arguments.of(4, 4, 4, 4, 4, 0)
+        );
     }
 }
